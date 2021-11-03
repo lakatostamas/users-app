@@ -5,7 +5,8 @@ import { usePostList } from './hook';
 import { ListTypes } from './model';
 
 function List() {
-  const { page, setPage, response, isFetching, userResponse, isUserLoading, listType, tagId } = usePostList();
+  const { page, setPage, response, isFetching, userResponse, isUserLoading, listType, tagId } =
+    usePostList();
 
   if (isFetching) {
     return <CircularProgress />;
@@ -33,7 +34,11 @@ function List() {
       </Grid>
       {!!response?.total && (
         <Box display="flex" justifyContent="center">
-          <Pagination count={Math.ceil(response.total / 20)} page={page} onChange={(ev, value) => setPage(value)} />
+          <Pagination
+            count={Math.ceil(response.total / 20)}
+            page={page}
+            onChange={(ev, value) => setPage(value)}
+          />
         </Box>
       )}
     </>

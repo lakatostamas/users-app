@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -69,6 +69,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function Layout() {
+  const history = useHistory();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -118,7 +119,7 @@ export default function Layout() {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem button key="Home">
+          <ListItem button key="Home" onClick={() => history.push('/')}>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
@@ -130,14 +131,7 @@ export default function Layout() {
         <DrawerHeader />
         <Switch>
           {routes.map(({ exact, path, component }) => {
-            return (
-              <Route
-                key={path}
-                exact={exact}
-                path={path}
-                component={component}
-              />
-            );
+            return <Route key={path} exact={exact} path={path} component={component} />;
           })}
         </Switch>
       </Main>

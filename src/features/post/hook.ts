@@ -5,6 +5,7 @@ import { useLazyGetUserByIdQuery } from '../user/api';
 import { ListTypes } from './model';
 
 export function usePostList() {
+  const [getUser, { data: userResponse, isLoading: isUserLoading }] = useLazyGetUserByIdQuery();
   const [page, setPage] = useState(1);
   const { userId, tagId } = useParams<{ userId?: string; tagId?: string }>();
   const listType = !!userId ? ListTypes.BY_USER_LIST : ListTypes.BY_TAG_LIST;
@@ -17,8 +18,6 @@ export function usePostList() {
         useGetPostListByUserQuery(userId!)
       : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         useGetPostListByTagQuery(tagId!);
-
-  const [getUser, { data: userResponse, isLoading: isUserLoading }] = useLazyGetUserByIdQuery();
 
   useEffect(() => {
     if (listType === ListTypes.BY_USER_LIST && userId) {
