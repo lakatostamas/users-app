@@ -17,8 +17,5 @@ const postApi = api.injectEndpoints({
   overrideExisting: false,
 });
 
-export const {
-  useGetPostListByUserQuery,
-  useGetCommentsByPostIdQuery,
-  useGetPostListByTagQuery,
-} = postApi;
+export const { useGetPostListByUserQuery, useGetCommentsByPostIdQuery, useGetPostListByTagQuery } =
+  postApi;
