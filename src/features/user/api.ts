@@ -1,17 +1,17 @@
 import { api } from '../../app/api';
 import { GenericListResponse } from '../../app/model';
-import { IUserPreview, IPostPreview } from './model';
+import { IUserPreview, IUser } from './model';
 
 const userApi = api.injectEndpoints({
   endpoints: (build) => ({
     getUsers: build.query<GenericListResponse<IUserPreview>, number>({
       query: (page) => `/user?page=${Math.max(page - 1, 0)}`,
     }),
-    getPostListByUser: build.query<GenericListResponse<IPostPreview>, string>({
-      query: (user) => `/user/${user}/post`,
+    getUserById: build.query<IUser, string>({
+      query: (id) => `/user/${id}`,
     }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetUsersQuery, useGetPostListByUserQuery } = userApi;
+export const { useGetUsersQuery, useGetUserByIdQuery } = userApi;

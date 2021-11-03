@@ -1,7 +1,7 @@
 import React from 'react';
 import { CircularProgress, Card, CardHeader, Box, Avatar } from '@mui/material';
 import { IUserPreview } from './model';
-import { useGetPostListByUserQuery } from './api';
+import { useGetPostListByUserQuery } from '../post/api';
 
 interface ICardProps {
   user: IUserPreview;

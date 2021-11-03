@@ -27,13 +27,3 @@ export interface IUserPreview {
   lastName: string;
   picture: string;
 }
-
-export interface IPostPreview {
-  id: string;
-  text: string;
-  image: string;
-  likes: number;
-  tags: Array<string>;
-  publishDate: string;
-  owner: IUserPreview;
-}
