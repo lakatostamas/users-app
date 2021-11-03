@@ -94,7 +94,7 @@ export default function Layout() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            Users App
           </Typography>
         </Toolbar>
       </AppBar>
