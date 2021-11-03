@@ -7,6 +7,9 @@ const postApi = api.injectEndpoints({
     getPostListByUser: build.query<GenericListResponse<IPostPreview>, string>({
       query: (user) => `/user/${user}/post`,
     }),
+    getPostListByTag: build.query<GenericListResponse<IPostPreview>, string>({
+      query: (tag) => `/tag/${tag}/post`,
+    }),
     getCommentsByPostId: build.query<GenericListResponse<IComment>, string>({
       query: (id) => `/post/${id}/comment`,
     }),
@@ -14,5 +17,8 @@ const postApi = api.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetPostListByUserQuery, useGetCommentsByPostIdQuery } =
-  postApi;
+export const {
+  useGetPostListByUserQuery,
+  useGetCommentsByPostIdQuery,
+  useGetPostListByTagQuery,
+} = postApi;

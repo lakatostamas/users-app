@@ -12,4 +12,9 @@ export const routes = [
     component: PostList,
     exact: true,
   },
+  {
+    path: '/tag/:tagId/post',
+    component: PostList,
+    exact: true,
+  },
 ];

@@ -1,51 +1,39 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import {
-  CircularProgress,
-  Grid,
-  Box,
-  Pagination,
-  Typography,
-} from '@mui/material';
-import { useGetPostListByUserQuery } from './api';
-import { useGetUserByIdQuery } from '../user/api';
+import React from 'react';
+import { CircularProgress, Grid, Box, Pagination, Typography } from '@mui/material';
 import PostCard from './PostCard';
+import { usePostList } from './hook';
+import { ListTypes } from './model';
 
 function List() {
-  const [page, setPage] = useState(1);
-  const { userId } = useParams<{ userId: string }>();
-  const { data: response, isFetching } = useGetPostListByUserQuery(userId);
-  const { data: userResponse, isLoading: isUserLoading } =
-    useGetUserByIdQuery(userId);
+  const { page, setPage, response, isFetching, userResponse, isUserLoading, listType, tagId } = usePostList();
 
   if (isFetching) {
     return <CircularProgress />;
   }
 
+  const renderTitle = () => {
+    if (listType === ListTypes.BY_USER_LIST) {
+      return <>User: {isUserLoading ? <CircularProgress size={16} /> : userResponse?.firstName}</>;
+    }
+
+    return <>Tag: #{tagId}</>;
+  };
+
   return (
     <>
       <Typography variant="h6" noWrap component="div">
-        User:{' '}
-        {isUserLoading ? (
-          <CircularProgress size={16} />
-        ) : (
-          userResponse?.firstName
-        )}
+        {renderTitle()}
       </Typography>
       <Grid container spacing={2}>
         {(response?.data ?? []).map((post) => (
           <Grid item xs={12} sm={6} md={3} key={post.id}>
-            <PostCard post={post} />
+            <PostCard post={post} listType={listType} />
           </Grid>
         ))}
       </Grid>
       {!!response?.total && (
         <Box display="flex" justifyContent="center">
-          <Pagination
-            count={Math.ceil(response.total / 20)}
-            page={page}
-            onChange={(ev, value) => setPage(value)}
-          />
+          <Pagination count={Math.ceil(response.total / 20)} page={page} onChange={(ev, value) => setPage(value)} />
         </Box>
       )}
     </>

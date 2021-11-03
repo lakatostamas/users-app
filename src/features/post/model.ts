@@ -17,3 +17,8 @@ export interface IComment {
   post: Array<string>;
   publishDate: string;
 }
+
+export enum ListTypes {
+  BY_USER_LIST,
+  BY_TAG_LIST,
+}
